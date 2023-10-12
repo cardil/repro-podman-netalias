@@ -1,0 +1,7 @@
+FROM quay.io/fedora/fedora
+RUN dnf install -y python3-redis python3-flask
+ADD serve.py /usr/lib/serve.py
+
+EXPOSE 5000
+
+CMD ["/bin/python3", "/usr/lib/serve.py"]

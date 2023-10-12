@@ -1,0 +1,29 @@
+services:
+  app:
+    build: app
+    ports:
+      - 8080:5000
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    networks:
+      - apps
+      - data
+  
+  redis:
+    image: docker.io/redis/redis-stack-server
+    networks:
+      - data
+  
+  data:
+    build: data
+    networks:
+      - data
+    depends_on:
+      - redis
+    stop_signal: SIGINT
+
+networks:
+  apps: {}
+  data: {}
